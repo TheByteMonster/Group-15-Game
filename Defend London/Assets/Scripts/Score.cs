@@ -6,7 +6,8 @@ public class Score : MonoBehaviour
 {
 	public int score = 0;					// The player's score.
     public float time;
-    private bool stopTimer = false;
+    private bool timeLeft = true;
+    public float timeLimit;
 
 
 	private PlayerControl playerControl;	// Reference to the player control script.
@@ -17,7 +18,7 @@ public class Score : MonoBehaviour
 	{
 		// Setting up the reference.
 		playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
-	}
+    }
 
 
 	void Update ()
@@ -25,24 +26,27 @@ public class Score : MonoBehaviour
         time -= Time.deltaTime;
 
         GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
-        Debug.Log("Timer = 0");
 
-        if (Time.deltaTime == 0)
-        {
-            //time = 0;
-            stopTimer = true;
-            Debug.Log("Timer = 0");
+        if (time <= 0f) {
+            time = 0;
+            timeLeft = false;
+            GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
+            //kill player here
+
         }
-        //stop timer
-        //kill player
+    }
 
-        // If the score has changed...
-        //if(previousScore != score)
-        // ... play a taunt.
-        //playerControl.StartCoroutine(playerControl.Taunt());
 
-        // Set the previous score to this frame's score.
-        //previousScore = score;
+     public void addTime() {
+        //set limit on the timer 
+        if (time >= 25) {
+            time = 45;
+        }
+        else
+        {
+            time += 5;
+        }
+        
     }
 
 }

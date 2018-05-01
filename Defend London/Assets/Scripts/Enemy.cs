@@ -84,6 +84,7 @@ public class Enemy : MonoBehaviour
 
 		// Set dead to true.
 		dead = true;
+        score.addTime();
 
 		// Allow the enemy to rotate and spin it by adding a torque.
 		GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin,deathSpinMax));

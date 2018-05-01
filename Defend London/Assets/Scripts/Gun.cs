@@ -6,6 +6,8 @@ public class Gun : MonoBehaviour
 	public Rigidbody2D rocket;				// Prefab of the rocket.
 	public float speed = 20f;				// The speed the rocket will fire at.
     public float range;
+    public float fireRate;
+    public bool allowFire; 
 
 
 	private PlayerControl playerCtrl;		// Reference to the PlayerControl script.
@@ -17,14 +19,17 @@ public class Gun : MonoBehaviour
 		// Setting up the references.
 		anim = transform.root.gameObject.GetComponent<Animator>();
 		playerCtrl = transform.root.GetComponent<PlayerControl>();
+        RateOfFireController(1);
 	}
 
 
 	void Update ()
 	{
+       
 		// If the fire button is pressed...
 		if(Input.GetButtonDown("Fire1"))
 		{
+
 			// ... set the animator Shoot trigger parameter and play the audioclip.
 			anim.SetTrigger("Shoot");
 			GetComponent<AudioSource>().Play();
@@ -32,13 +37,12 @@ public class Gun : MonoBehaviour
 			// If the player is facing right...
 			if(playerCtrl.facingRight)
 			{
-				// ... instantiate the rocket facing right and set it's velocity to the right. 
-				Rigidbody2D bulletInstance = Instantiate(rocket, transform.position, Quaternion.Euler(new Vector3(0,0,0))) as Rigidbody2D;
+                // ... instantiate the rocket facing right and set it's velocity to the right.
+                Debug.Log("Firerate");
+                Rigidbody2D bulletInstance = Instantiate(rocket, transform.position, Quaternion.Euler(new Vector3(0,0,0))) as Rigidbody2D;
 				bulletInstance.velocity = new Vector2(speed, 0);
-                Debug.Log(bulletInstance.transform.position + "right");
-                //if range delete object
-                //else nothing
-			}
+  
+            }
 			else
 			{
 				// Otherwise instantiate the rocket facing left and set it's velocity to the left.
@@ -47,4 +51,11 @@ public class Gun : MonoBehaviour
 			}
 		}
 	}
+    IEnumerator RateOfFireController(float fireRate) {
+
+        allowFire = false; 
+        Debug.Log("Firerate");
+        yield return new WaitForSeconds(fireRate);
+        allowFire = true; 
+    }
 }
