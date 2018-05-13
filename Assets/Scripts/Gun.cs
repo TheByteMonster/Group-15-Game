@@ -4,7 +4,7 @@ using System.Collections;
 public class Gun : MonoBehaviour
 {
 	public Rigidbody2D rocket;				// Prefab of the rocket.
-	public float speed = 20f;				// The speed the rocket will fire at.
+	public float speed = 80f;				// The speed the rocket will fire at.
     public float range;
     public float fireRate = 1f;
     public bool allowFire = true; 

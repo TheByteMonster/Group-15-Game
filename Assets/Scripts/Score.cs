@@ -8,9 +8,10 @@ public class Score : MonoBehaviour
     public float time;
     private bool timeLeft = true;
     public float timeLimit;
+    private float updatedTime;
 
 
-	private PlayerControl playerControl;	// Reference to the player control script.
+    private PlayerControl playerControl;	// Reference to the player control script.
 	//private int previousScore = 0;			// The score in the previous frame.
 
 
@@ -23,6 +24,8 @@ public class Score : MonoBehaviour
 
 	void Update ()
 	{
+        //updateTime();
+        //GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString();
         time -= Time.deltaTime;
 
         GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
@@ -47,7 +50,10 @@ public class Score : MonoBehaviour
         {
             time += 5;
         }
-        
+    }
+
+    public void updateTime(float newTime) {
+        updatedTime = newTime;    
     }
 
 }
