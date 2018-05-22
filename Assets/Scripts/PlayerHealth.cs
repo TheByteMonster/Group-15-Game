@@ -121,6 +121,9 @@ public class PlayerHealth : MonoBehaviour
 		int i = Random.Range (0, ouchClips.Length);
 		AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
 	}
+    public void hurt() {
+        highTime--;
+    }
 
     
 	public void UpdateHealthBar ()

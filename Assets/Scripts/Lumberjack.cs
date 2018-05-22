@@ -8,6 +8,12 @@ public class Lumberjack : MonoBehaviour {
     public bool spotted;
     public GameObject arrow; //arrow in tutorial for an alert the player has entered guard line of sight
     public Vector2 direction;
+    public SphereCollider sphereSight;
+    public Rigidbody2D bullet; // enemy attack
+    public float speed = 40f;
+    public Ray sight;
+    public bool allowFire = true;
+    private PlayerControl player; 
 
 
     // Use this for initialization
@@ -17,58 +23,72 @@ public class Lumberjack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        rayCast();
-        behaviours();
+        //rayCast();
+        //behaviours();
+        //enemySight();
 	}
 
-    void rayCast() {
-        Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
-        spotted = Physics2D.Linecast(sightStart.position, sightEnd.position, 1 << LayerMask.NameToLayer("Player"));// implement masking layer later
-    }
-
-    void behaviours() {
-        //use sphere collider
-
-        //if player enter sphere collider 
-        //draw raycast
-        //if raycast does hit object 
-        //shoot
-
-        if (spotted == true) {
-            //arrow.SetActive(true);
-            //if player enters the sphere collider 
-            //OnCollisionEnter2D(); for the player
-           
-        }
-        else {
-            arrow.SetActive(false);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    //for the raycast
+    bool rayCast()
     {
-        RaycastHit2D sight = Physics2D.Raycast(this.gameObject.transform.position, direction, 10.0f);
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
 
-        //If something was hit.
-        if (sight.collider != null)
+        if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
+        1 << LayerMask.NameToLayer("floor"))){// floor is a placeholder
+            return false; 
+        }
+        else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
+            1 << LayerMask.NameToLayer("Player")))
         {
-            Transform objectHit = sight.transform;
-            //shoot
+            return true;
+        }
+        else
+        {
+            return false;
 
-            //Display the name of the parent of the object hit.
-            Debug.Log(objectHit.parent.name);
-        } 
-        
+        }
     }
 
-    void patrol() {
+    private void FixedUpdate()
+    {
+        if (rayCast() == true && (allowFire))
+        {
+            if (player.transform.position.x < transform.position.x) 
+            {// for left player
+
+                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+                bulletInstance.velocity = new Vector2(speed, 0);
+                StartCoroutine(rateOfFireController());
+            }
+            else if(player.transform.position.x > transform.position.x){ //for right player
+
+                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0,0,180f))) as Rigidbody2D;
+                bulletInstance.velocity = new Vector2(-speed, 0);
+                StartCoroutine(rateOfFireController());
+             }
+        }
+    }
+
+    void patrol()
+    {
         facingLeft = !facingLeft;
         if (facingLeft == true)
         {
             transform.eulerAngles = new Vector2(0, 0);
         }
-        else {
+        else
+        {
             transform.eulerAngles = new Vector2(0, 180);
         }
     }
+
+    IEnumerator rateOfFireController()
+    {
+        allowFire = false;
+        yield return new WaitForSeconds(.4f);
+        allowFire = true;
+    }
 }
+
+
