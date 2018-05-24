@@ -18,7 +18,7 @@ public class Lumberjack : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        InvokeRepeating("patrol",0f,Random.Range(0,4));
+        //InvokeRepeating("patrol",0f,Random.Range(0,4));
 	}
 	
 	// Update is called once per frame
@@ -57,7 +57,8 @@ public class Lumberjack : MonoBehaviour {
             if (player.transform.position.x < transform.position.x) 
             {// for left player
 
-                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+                //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D; //My one
+                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>(); // william's suggested way
                 bulletInstance.velocity = new Vector2(speed, 0);
                 StartCoroutine(rateOfFireController());
             }
