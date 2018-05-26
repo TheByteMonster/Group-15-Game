@@ -58,7 +58,7 @@ public class Lumberjack : MonoBehaviour {
         {
             if (player.transform.position.x < transform.position.x) 
             {// for left player
-
+                gun.fireWeapon();// broken logic here-pa
 
                 //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D; //My one
                 //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>(); // william's suggested way
