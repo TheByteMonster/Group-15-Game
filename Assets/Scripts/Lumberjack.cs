@@ -8,7 +8,6 @@ public class Lumberjack : MonoBehaviour {
     public bool spotted;
     public GameObject arrow; //arrow in tutorial for an alert the player has entered guard line of sight
     public Vector2 direction;
-    public SphereCollider sphereSight;
     public Rigidbody2D bullet; // enemy attack
     public float speed = 40f;
     public Ray sight;
