@@ -12,12 +12,15 @@ public class Lumberjack : MonoBehaviour {
     public float speed = 40f;
     public Ray sight;
     public bool allowFire = true;
-    private PlayerControl player; 
+
+    private PlayerControl player;
+    private LumberjackGun gun;
 
 
     // Use this for initialization
     void Start () {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
+        rayCast();
 	}
 	
 	// Update is called once per frame
@@ -56,39 +59,36 @@ public class Lumberjack : MonoBehaviour {
             if (player.transform.position.x < transform.position.x) 
             {// for left player
 
+
                 //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D; //My one
-                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>(); // william's suggested way
-                bulletInstance.velocity = new Vector2(speed, 0);
-                StartCoroutine(rateOfFireController());
+                //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>(); // william's suggested way
+               // bulletInstance.velocity = new Vector2(speed, 0);
+                //StartCoroutine(rateOfFireController());
             }
             else if(player.transform.position.x > transform.position.x){ //for right player
 
-                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0,0,180f))) as Rigidbody2D;
-                bulletInstance.velocity = new Vector2(-speed, 0);
-                StartCoroutine(rateOfFireController());
+                //Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0,0,180f))) as Rigidbody2D;
+                //bulletInstance.velocity = new Vector2(-speed, 0);
+                //StartCoroutine(rateOfFireController());
              }
         }
     }
 
-    void patrol()
+    public string patrol()
     {
         facingLeft = !facingLeft;
         if (facingLeft == true)
         {
             transform.eulerAngles = new Vector2(0, 0);
+            return ("left");
         }
         else
         {
             transform.eulerAngles = new Vector2(0, 180);
+            return ("right");
         }
     }
 
-    IEnumerator rateOfFireController()
-    {
-        allowFire = false;
-        yield return new WaitForSeconds(.4f);
-        allowFire = true;
-    }
 }
 
 
