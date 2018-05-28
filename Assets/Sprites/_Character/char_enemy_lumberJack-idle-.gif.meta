@@ -5,8 +5,8 @@ licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: char_enemy_lumberJack-idle-_0
-    21300002: char_enemy_lumberJack-idle-_1
-    21300004: char_enemy_lumberJack-idle-_2
+    21300002: lumberjack
+    21300004: lumberjack-gun
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -86,8 +86,8 @@ TextureImporter:
       name: char_enemy_lumberJack-idle-_0
       rect:
         serializedVersion: 2
-        x: 335
-        y: 144
+        x: 331
+        y: 148
         width: 905
         height: 1722
       alignment: 0
@@ -97,7 +97,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: char_enemy_lumberJack-idle-_1
+      name: lumberjack
       rect:
         serializedVersion: 2
         x: 317
@@ -111,7 +111,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: char_enemy_lumberJack-idle-_2
+      name: lumberjack-gun
       rect:
         serializedVersion: 2
         x: 1219

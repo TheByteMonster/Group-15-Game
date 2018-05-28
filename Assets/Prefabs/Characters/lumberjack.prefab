@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4497587784248872}
   - component: {fileID: 212371885720987526}
-  - component: {fileID: 114058648932725770}
   - component: {fileID: 50061817981006908}
   - component: {fileID: 61304471039918140}
   - component: {fileID: 95848279783340118}
@@ -80,7 +79,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.6, y: 17.22}
+    oldSize: {x: 9.05, y: 17.22}
     newSize: {x: 8.6, y: 17.22}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -106,26 +105,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114058648932725770
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1178498955807052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6543e2ba8424e4f43828d40cb8b28664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightStart: {fileID: 0}
-  sightEnd: {fileID: 0}
-  facingLeft: 1
-  spotted: 0
-  arrow: {fileID: 0}
-  direction: {x: 0, y: 0}
-  bullet: {fileID: 0}
-  speed: 40
-  allowFire: 1
 --- !u!212 &212371885720987526
 SpriteRenderer:
   m_ObjectHideFlags: 1

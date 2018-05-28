@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.LogWarning("Collision--" + gameObject.gameObject + " at " + Time.time);
+        //Debug.LogWarning("Collision--" + gameObject.gameObject + " at " + Time.time);
         // If the colliding gameobject is an Enemy...
         if (col.gameObject.tag == "Enemy")
         {
