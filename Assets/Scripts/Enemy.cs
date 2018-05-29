@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
 				break;
 			}
 		}
-
 		// Set the enemy's velocity to moveSpeed in the x direction.
 		GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);	
 
@@ -56,6 +55,7 @@ public class Enemy : MonoBehaviour
 		if(HP <= 0 && !dead)
 			// ... call the death function.
 			Death ();
+
 	}
 	
 	public void Hurt()
@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
 
 		// Set dead to true.
 		dead = true;
-        score.addTime();
+        //score.addTime();
 
 		// Allow the enemy to rotate and spin it by adding a torque.
 		GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin,deathSpinMax));

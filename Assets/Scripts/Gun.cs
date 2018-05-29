@@ -52,6 +52,7 @@ public class Gun : MonoBehaviour
             }
         }
 	}
+
     IEnumerator rateOfFireController() {
 
         allowFire = false; 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Lumberjack : MonoBehaviour {
-    public bool facingLeft = true;
     public bool spotted;
     public Vector2 direction;
     public Ray sight;
     public float healthPoints;
+    public bool dead = false;
+    public AudioClip[] deathClips;
 
     private PlayerControl player;
 
@@ -15,47 +16,47 @@ public class Lumberjack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
-
-        //rayCast();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //rayCast();
-        //behaviours();
-        //enemySight();
-	}
+
+    }
+
+   void FixedUpdate()
+    {
+        //kill enemy if health is zero
+        if (healthPoints <=0 ) {
+            Death();
+        }
+
+    }
 
     public void hurt(Transform col) {
+
         // If the colliding gameobject is an Enemy...
         if (col.gameObject.tag == "blast")
         {
-            hurt();
-        }
-
-        else //KEEP THIS ELSE STATEMENT
-        {
-
+            damaged();
         }
     }
 
-    void hurt() {
+    void damaged () {
         healthPoints -= 50;
     }
 
-    public string patrol()
-    {
-        facingLeft = !facingLeft;
-        if (facingLeft == true)
-        {
-            transform.eulerAngles = new Vector2(0, 0);
-            return ("left");
-        }
-        else
-        {
-            transform.eulerAngles = new Vector2(0, 180);
-            return ("right");
-        }
+    void Death(Collision2D col ) {
+
+        dead = true;
+
+
+
+        int i = Random.Range(0, deathClips.Length);
+        AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
+
+        // more to this
+        Destroy(col.gameObject);
+        Destroy(gameObject);
     }
 
 }
