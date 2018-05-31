@@ -6,6 +6,9 @@ public class PlayerController : Gravity {
 
     public float jumpTakeOffSpeed = 7;
     public float maxSpeed = 7;
+
+    private Transform playerPosition;
+ 
 	// Use this for initialization
 	void Start () {
 		
@@ -18,9 +21,11 @@ public class PlayerController : Gravity {
 
     protected override void ComputeVelocity() {
         Vector2 move = Vector2.zero;
+        Debug.Log("Jump");
 
         move.x = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && grounded) {
+            
             velocity.y = jumpTakeOffSpeed;
         }
         else if (Input.GetButtonUp("Jump")) {
@@ -29,5 +34,9 @@ public class PlayerController : Gravity {
             }
             targetVelocity = move * maxSpeed;
         }
+    }
+
+    public Transform getPlayerPosition() {
+        return playerPosition;
     }
 }

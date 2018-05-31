@@ -34,13 +34,12 @@ public class LumberjackGun : MonoBehaviour {
 
     void Update()
     {
-        pointWeapon();
+        //pointWeapon();
     }
 
     private void FixedUpdate()
     {
         rayCast();
-
 
         if (rayCast() == true) {
             fireWeapon();
@@ -51,11 +50,15 @@ public class LumberjackGun : MonoBehaviour {
     bool rayCast()
     {
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        Quaternion rotation = Quaternion.LookRotation(playerPosition - transform.position, transform.TransformDirection(Vector3.up));
+        transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+
         //Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
 
         if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
-        1 << LayerMask.NameToLayer("floor")))
-        {// floor is a placeholder
+        1 << LayerMask.NameToLayer("ground")))
+        {
             return false;
         }
         else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
@@ -106,18 +109,17 @@ public class LumberjackGun : MonoBehaviour {
         }*/
 
     }
-
+    //legacy code, consider putting it in raycast()
     void pointWeapon() {
 
         //need to get gun sprite to point at player
 
         float xAxis;
 
-        
-
         Transform playerLocation = target.getPlayerPosition();
         transform.LookAt(playerLocation);
 
+  
         //Vector3 dir = playerLocation - transform.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
