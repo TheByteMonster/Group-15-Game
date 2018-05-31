@@ -6,6 +6,9 @@ public class PlayerController : Gravity {
 
     public float jumpTakeOffSpeed = 7;
     public float maxSpeed = 7;
+
+    private Transform playerPosition;
+ 
 	// Use this for initialization
 	void Start () {
 		
@@ -29,5 +32,9 @@ public class PlayerController : Gravity {
             }
             targetVelocity = move * maxSpeed;
         }
+    }
+
+    public Transform getPlayerPosition() {
+        return playerPosition;
     }
 }

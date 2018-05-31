@@ -9,6 +9,8 @@ public class Lumberjack : MonoBehaviour {
     public float healthPoints;
     public bool dead = false;
     public AudioClip[] deathClips;
+    public float deathSpinMin = -100f;       
+    public float deathSpinMax = 100f;			
 
     private PlayerControl player;
 
@@ -27,7 +29,7 @@ public class Lumberjack : MonoBehaviour {
     {
         //kill enemy if health is zero
         if (healthPoints <=0 ) {
-            Death();
+            //Death();
         }
 
     }
@@ -45,19 +47,27 @@ public class Lumberjack : MonoBehaviour {
         healthPoints -= 50;
     }
 
-    void Death(Collision2D col ) {
+    void Death() {
 
         dead = true;
 
+        Collider2D[] cols = GetComponents<Collider2D>();
+        foreach (Collider2D c in cols)
+        {
+            c.isTrigger = true;
+        }
 
+        GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
 
         int i = Random.Range(0, deathClips.Length);
         AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
 
         // more to this
-        Destroy(col.gameObject);
-        Destroy(gameObject);
+        //Destroy(col.gameObject);
+        //Destroy(gameObject);
     }
+
+
 
 }
 

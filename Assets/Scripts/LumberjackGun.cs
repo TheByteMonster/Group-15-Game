@@ -113,10 +113,10 @@ public class LumberjackGun : MonoBehaviour {
 
         float xAxis;
 
-        
-
         Transform playerLocation = target.getPlayerPosition();
         transform.LookAt(playerLocation);
+
+  
 
         //Vector3 dir = playerLocation - transform.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
