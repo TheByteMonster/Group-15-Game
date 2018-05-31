@@ -18,8 +18,10 @@ public class EnemyLogic : MonoBehaviour {
         Behaviours();
 	}
     void RayCasting() {
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         Debug.DrawLine(sightStart.position,sightEnd.position,Color.green);
-        spotted = Physics2D.Linecast(sightStart.position, sightEnd.position);
+        spotted = Physics2D.Linecast(sightStart.position, playerPosition);
+
     }
 
     void Behaviours() {

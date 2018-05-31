@@ -29,7 +29,7 @@ public class Lumberjack : MonoBehaviour {
     {
         //kill enemy if health is zero
         if (healthPoints <=0 ) {
-            //Death();
+            Death();
         }
 
     }
@@ -39,11 +39,11 @@ public class Lumberjack : MonoBehaviour {
         // If the colliding gameobject is an Enemy...
         if (col.gameObject.tag == "blast")
         {
-            damaged();
+            Damaged();
         }
     }
 
-    void damaged () {
+    void Damaged () {
         healthPoints -= 50;
     }
 

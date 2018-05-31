@@ -77,7 +77,7 @@ public class Bunker : MonoBehaviour {
 
             //get angle of gun 
             //move projectile along angle
-            if (lumberjack.patrol() == "left")
+            /*if (lumberjack.patrol() == "left")
             {
                 // ... instantiate the rocket facing right and set it's velocity to the right.
                 Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
@@ -91,7 +91,7 @@ public class Bunker : MonoBehaviour {
                 Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 180f))) as Rigidbody2D;
                 bulletInstance.velocity = new Vector2(-speed, 0);
                 StartCoroutine(rateOfFireController());
-            }
+            }*/
         }
     }
 

@@ -21,9 +21,11 @@ public class PlayerController : Gravity {
 
     protected override void ComputeVelocity() {
         Vector2 move = Vector2.zero;
+        Debug.Log("Jump");
 
         move.x = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && grounded) {
+            
             velocity.y = jumpTakeOffSpeed;
         }
         else if (Input.GetButtonUp("Jump")) {

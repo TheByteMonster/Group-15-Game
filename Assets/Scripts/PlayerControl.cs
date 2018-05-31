@@ -34,7 +34,7 @@ public class PlayerControl : MonoBehaviour
 		//grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
 
 		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump") && grounded)
+		if(Input.GetButtonDown("Jump")) //&& grounded)
 			jump = true;
 	}
 
@@ -70,11 +70,11 @@ public class PlayerControl : MonoBehaviour
 		if(jump)
 		{
 			// Set the Jump animator trigger parameter.
-			anim.SetTrigger("Jump");
+			//anim.SetTrigger("Jump");
 
 			// Play a random jump audio clip.
-			int i = Random.Range(0, jumpClips.Length);
-			AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
+			//int i = Random.Range(0, jumpClips.Length);
+			//AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
 
 			// Add a vertical force to the player.
 			GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
