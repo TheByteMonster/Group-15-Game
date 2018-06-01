@@ -25,15 +25,20 @@ public class PlayerHealth : MonoBehaviour
 	{
 		// Setting up references.
 		playerControl = GetComponent<PlayerControl>();
-		//healthBar = GameObject.Find("HealthBar").GetComponent<SpriteRenderer>();
+		healthBar = GameObject.Find("HealthBar").GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
 
+		// Getting the intial scale of the healthbar (whilst the player has full health).
+		healthScale = healthBar.transform.localScale;
 	}
 
     void Update()
     {
         // not linked to score object
         highTime -= Time.deltaTime;
+       // Debug.Log(highTime);
+        //score.updateTime(highTime);
+        //Debug.Log("Code ok");
     }
 
 
@@ -50,7 +55,6 @@ public class PlayerHealth : MonoBehaviour
                     //take away time for damage
                     TakeDamage(col.transform);
                     lastHitTime = Time.time;
-
                 }
             }
             /*
@@ -89,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
                 GetComponentInChildren<Gun>().enabled = false;
 
                 // ... Trigger the 'Die' animation state
-                //anim.SetTrigger("Die");
+                anim.SetTrigger("Die");
             }
             }
     }
@@ -122,4 +126,12 @@ public class PlayerHealth : MonoBehaviour
     }
 
     
+	public void UpdateHealthBar ()
+	{
+		// Set the health bar's colour to proportion of the way between green and red based on the player's health.
+		healthBar.material.color = Color.Lerp(Color.green, Color.red, 1 - health * 0.01f);
+
+		// Set the scale of the health bar to be proportional to the player's health.
+		healthBar.transform.localScale = new Vector3(healthScale.x * health * 0.01f, 1, 1);
+	}
 }
