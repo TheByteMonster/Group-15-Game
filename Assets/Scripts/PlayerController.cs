@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Gravity {
+public class PlayerController : MonoBehaviour {
 
     public float jumpTakeOffSpeed = 7;
     public float maxSpeed = 7;
@@ -18,7 +18,7 @@ public class PlayerController : Gravity {
 	void Update () {
 		
 	}
-
+    /*
     protected override void ComputeVelocity() {
         Vector2 move = Vector2.zero;
         Debug.Log("Jump");
@@ -34,7 +34,7 @@ public class PlayerController : Gravity {
             }
             targetVelocity = move * maxSpeed;
         }
-    }
+    }*/
 
     public Transform getPlayerPosition() {
         return playerPosition;
