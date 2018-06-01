@@ -15,7 +15,6 @@ public class LumberjackGun : MonoBehaviour {
     
 
     private Animator anim;                  // Reference to the Animator component.
-    private PlayerController target;
     private float dir;
     private GameObject gun;
     
@@ -107,22 +106,6 @@ public class LumberjackGun : MonoBehaviour {
             bulletInstance.velocity = new Vector2(-speed, 0);
             StartCoroutine(rateOfFireController());
         }*/
-
-    }
-    //legacy code, consider putting it in raycast()
-    void pointWeapon() {
-
-        //need to get gun sprite to point at player
-
-        float xAxis;
-
-        Transform playerLocation = target.getPlayerPosition();
-        transform.LookAt(playerLocation);
-
-  
-        //Vector3 dir = playerLocation - transform.position;
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 
