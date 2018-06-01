@@ -8,34 +8,40 @@ public class PlayerControl : MonoBehaviour
 	[HideInInspector]
 	public bool jump = false;				// Condition for whether the player should jump.
 
-
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
-	public float jumpForce = 1000f;			// Amount of force added when the player jumps.
+	public float jumpForce = 3000f;			// Amount of force added when the player jumps.
 	public AudioClip[] taunts;				// Array of clips for when the player taunts.
+    public float jumpLimit = 2;
+    public float timeBetweenJumps = 1.5f;
 
-	private Transform groundCheck;			// A position marking where to check if the player is grounded.
+
+    private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
+    private bool allowJump = true;
 
 
-	void Awake()
+    void Awake()
 	{
 		// Setting up references.
-		groundCheck = transform.Find("groundCheck");
+		//groundCheck = transform.Find("groundCheck");
 		anim = GetComponent<Animator>();
 	}
 
 
-	void Update()
-	{
-		// The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-		//grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
+    void Update()
+    {
+        // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
+        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
+        grounded = Physics2D.Linecast(transform.position, Vector2.up);
 
-		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump")) //&& grounded)
-			jump = true;
+        if (Input.GetButtonDown("Jump") && allowJump) { //&& grounded) {  
+            jump = true;
+            allowJump = false;
+        }
+
 	}
 
 
@@ -66,23 +72,41 @@ public class PlayerControl : MonoBehaviour
 			// ... flip the player.
 			Flip();
 
-		// If the player should jump...
-		if(jump)
-		{
-			// Set the Jump animator trigger parameter.
-			//anim.SetTrigger("Jump");
+        // If the player should jump...
+        if (jump)
+        {
+            // Set the Jump animator trigger parameter.
+            //anim.SetTrigger("Jump");
 
-			// Play a random jump audio clip.
-			//int i = Random.Range(0, jumpClips.Length);
-			//AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
+            // Play a random jump audio clip.
+            //int i = Random.Range(0, jumpClips.Length);
+            //AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
 
-			// Add a vertical force to the player.
-			GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
+            // Add a vertical force to the player.
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
 
-			// Make sure the player can't jump again until the jump conditions from Update are satisfied.
-			jump = false;
-		}
-	}
+            // Make sure the player can't jump again until the jump conditions from Update are satisfied.
+            jump = false;
+            Invoke("EnableJump", timeBetweenJumps);
+        }
+        /*else
+        {
+
+            GetComponent<Rigidbody2D>().AddForce(-Vector3.up * jumpForce);//, ForceMode.Impulse);
+                
+        }
+
+        if (transform.position.y >= jumpLimit) {
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }*/
+            
+    }
+
+
+    private void EnableJump()
+    {
+        allowJump = true;
+    }
 	
 	
 	void Flip ()
@@ -96,5 +120,13 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+    public void updateSpeed() {
+        moveForce -= 5f;
+        if (moveForce > 250) {
+            moveForce = 250;
+        }
+    }
+ }
 
-}
+
+
