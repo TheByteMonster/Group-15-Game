@@ -120,5 +120,13 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+    public void updateSpeed() {
+        moveForce -= 5f;
+        if (moveForce > 250) {
+            moveForce = 250;
+        }
+    }
+ }
 
-}
+
+

@@ -34,15 +34,18 @@ public class LumberjackGun : MonoBehaviour {
     void Update()
     {
         //pointWeapon();
+        rayCast();
+
+        if (rayCast() == true)
+        {
+            Debug.Log("Fire");
+            fireWeapon();
+        }
     }
 
     private void FixedUpdate()
     {
-        rayCast();
 
-        if (rayCast() == true) {
-            fireWeapon();
-        }
     }
 
     //for the raycast
@@ -63,6 +66,7 @@ public class LumberjackGun : MonoBehaviour {
         else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
             1 << LayerMask.NameToLayer("Player")))
         {
+            Debug.Log("Fire");
             return true;
         }
         else
@@ -76,9 +80,7 @@ public class LumberjackGun : MonoBehaviour {
     {
 
         if ((allowFire))
-        {
-
-            // ... set the animator Shoot trigger parameter and play the audioclip.
+        {  
             anim.SetTrigger("Shoot");
             GetComponent<AudioSource>().Play();
 

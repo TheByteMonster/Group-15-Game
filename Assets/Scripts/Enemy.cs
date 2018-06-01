@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
 		// Check each of the colliders.
 		/*foreach(Collider2D c in frontHits)
 		{
-			// If any of the colliders is an Obstacle...
+			// If any of the colliders is an Obstacle... 
 			if(c.tag == "Obstacle")
 			{
 				// ... Flip the enemy and stop checking the other colliders.
