@@ -15,6 +15,7 @@ public class LumberjackGun : MonoBehaviour {
     
 
     private Animator anim;                  // Reference to the Animator component.
+    private PlayerController target;
     private float dir;
     private GameObject gun;
     
@@ -34,18 +35,15 @@ public class LumberjackGun : MonoBehaviour {
     void Update()
     {
         //pointWeapon();
-        rayCast();
-
-        if (rayCast() == true)
-        {
-            Debug.Log("Fire");
-            fireWeapon();
-        }
     }
 
     private void FixedUpdate()
     {
+        rayCast();
 
+        if (rayCast() == true) {
+            fireWeapon();
+        }
     }
 
     //for the raycast
@@ -66,7 +64,6 @@ public class LumberjackGun : MonoBehaviour {
         else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
             1 << LayerMask.NameToLayer("Player")))
         {
-            Debug.Log("Fire");
             return true;
         }
         else
@@ -80,7 +77,9 @@ public class LumberjackGun : MonoBehaviour {
     {
 
         if ((allowFire))
-        {  
+        {
+
+            // ... set the animator Shoot trigger parameter and play the audioclip.
             anim.SetTrigger("Shoot");
             GetComponent<AudioSource>().Play();
 
@@ -108,6 +107,22 @@ public class LumberjackGun : MonoBehaviour {
             bulletInstance.velocity = new Vector2(-speed, 0);
             StartCoroutine(rateOfFireController());
         }*/
+
+    }
+    //legacy code, consider putting it in raycast()
+    void pointWeapon() {
+
+        //need to get gun sprite to point at player
+
+        float xAxis;
+
+        Transform playerLocation = target.getPlayerPosition();
+        transform.LookAt(playerLocation);
+
+  
+        //Vector3 dir = playerLocation - transform.position;
+        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 
