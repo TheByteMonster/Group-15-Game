@@ -37,18 +37,6 @@ public class Rocket : MonoBehaviour
 			// Destroy the rocket.
 			Destroy (gameObject);
 		}
-		// Otherwise if it hits a bomb crate...
-		else if(col.tag == "BombPickup")
-		{
-			// ... find the Bomb script and call the Explode function.
-			col.gameObject.GetComponent<Bomb>().Explode();
-
-			// Destroy the bomb crate.
-			Destroy (col.transform.root.gameObject);
-
-			// Destroy the rocket.
-			Destroy (gameObject);
-		}
 		// Otherwise if the player manages to shoot himself...
 		else if(col.gameObject.tag != "Player")
 		{
