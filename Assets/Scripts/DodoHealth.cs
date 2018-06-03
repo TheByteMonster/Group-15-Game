@@ -40,12 +40,6 @@ public class DodoHealth : MonoBehaviour {
             //TakeDamage(col.transform);
             hurt();
             }
-         
-            else //KEEP THIS ELSE STATEMENT
-            {
-
-        }
-
     }
 
     //legacy code?? delete

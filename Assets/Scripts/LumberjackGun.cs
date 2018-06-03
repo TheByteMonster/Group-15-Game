@@ -49,7 +49,7 @@ public class LumberjackGun : MonoBehaviour {
         Quaternion rotation = Quaternion.LookRotation(playerPosition - transform.position, transform.TransformDirection(Vector3.up));
         transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 
-
+       
         Debug.DrawLine(transform.position, playerPosition, Color.green);
 
         if (spotted = Physics2D.Linecast(transform.position, playerPosition,
