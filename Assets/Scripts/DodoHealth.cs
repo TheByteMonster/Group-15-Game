@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DodoHealth : MonoBehaviour {
 
     public float timeToLive= 100f;               
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
-
+ 
+    private bool timeLeft = true;
 
     private float lastHitTime;                  // The time at which the player was last hit.
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
     private Animator anim;						// Reference to the Animator on the player
-    private TimeDisplay timeDisplay; 
-    
 
-    private Score score;
+    
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class DodoHealth : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime;
-
+        UpdateTimeDisplay(timeToLive);
     }
 
 
@@ -45,6 +45,7 @@ public class DodoHealth : MonoBehaviour {
             {
 
         }
+
     }
 
     //legacy code?? delete
@@ -68,10 +69,26 @@ public class DodoHealth : MonoBehaviour {
 
         int i = Random.Range(0, ouchClips.Length);
         AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
+
+        if (timeToLive <= 0) {
+
+            Collider2D[] cols = GetComponents<Collider2D>();
+            foreach (Collider2D c in cols)
+            {
+                c.isTrigger = true;
+            }
+        }
     }
 
-    public void UpdateTimeDisplay()
+    public void UpdateTimeDisplay(float time)
     {
+        GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
 
+        if (time <= 0f)
+        {
+            timeToLive = 0;
+            timeLeft = false;
+            GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
+        }
     }
 }

@@ -11,8 +11,8 @@ public class LumberjackGun : MonoBehaviour {
     public bool allowFire = true;
     public bool facingLeft = true;
     public bool spotted;
-    
 
+    private float angle;
     private Animator anim;                  // Reference to the Animator component.
     private PlayerController target;
     private float dir;
@@ -28,29 +28,28 @@ public class LumberjackGun : MonoBehaviour {
 
     private void Start()
     {
-        rayCast();
+        pointWeapon();
     }
 
     void Update()
     {
-        //pointWeapon();
+
     }
 
     private void FixedUpdate()
     {
-        rayCast();
-        
-  
+        pointWeapon();
     }
 
     //for the raycast
-    void rayCast()
+    void pointWeapon()
     {
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         Quaternion rotation = Quaternion.LookRotation(playerPosition - transform.position, transform.TransformDirection(Vector3.up));
         transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
-       
+
+
         Debug.DrawLine(transform.position, playerPosition, Color.green);
 
         if (spotted = Physics2D.Linecast(transform.position, playerPosition,
@@ -67,11 +66,8 @@ public class LumberjackGun : MonoBehaviour {
 
     public void fireWeapon()
     {
-      
-
         if ((allowFire))
         {
-
             // ... set the animator Shoot trigger parameter and play the audioclip.
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
@@ -80,22 +76,6 @@ public class LumberjackGun : MonoBehaviour {
             bulletInstance.velocity = new Vector2(speed, 0);
             StartCoroutine(rateOfFireController());
         }
-
-    }
-    //legacy code, consider putting it in raycast()
-    void pointWeapon() {
-
-        //need to get gun sprite to point at player
-
-        float xAxis;
-
-        Transform playerLocation = target.getPlayerPosition();
-        transform.LookAt(playerLocation);
-
-  
-        //Vector3 dir = playerLocation - transform.position;
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 

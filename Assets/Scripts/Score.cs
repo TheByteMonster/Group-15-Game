@@ -34,8 +34,6 @@ public class Score : MonoBehaviour
             time = 0;
             timeLeft = false;
             GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
-            //kill player here
-
         }
     }
 
