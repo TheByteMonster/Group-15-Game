@@ -5,10 +5,7 @@ using UnityEngine;
 public class Bunker : MonoBehaviour {
 
     public bool spotted;
-    public Vector2 direction;
     public Ray sight;
-    public float healthPoints;
-    public Transform sightStart, sightEnd;
     public float health = 200;
     public bool dead = false;
     public bool allowFire = true;
@@ -28,40 +25,34 @@ public class Bunker : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        rayCast();
-
+        
     }
 
     void FixedUpdate()
     {
-
+        rayCast();
         // If the enemy has zero or fewer hit points and isn't dead yet...
-        if (healthPoints <= 0 && !dead) {
+        if (health <= 0 && !dead) {
 
         }
   
     }
 
-    //for the raycast
-    bool rayCast()
+    void rayCast()
     {
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
 
-        if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
-        1 << LayerMask.NameToLayer("floor")))
-        {// floor is a placeholder
-            return false;
+        //Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
+
+        if (spotted = Physics2D.Linecast(transform.position, playerPosition,
+      1 << LayerMask.NameToLayer("ground")))
+        {
+            //nothing happens
         }
-        else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
+        else if (spotted = Physics2D.Linecast(transform.position, playerPosition,
             1 << LayerMask.NameToLayer("Player")))
         {
-            return true;
-        }
-        else
-        {
-            return false;
-
+            shoot();
         }
     }
 
@@ -75,23 +66,9 @@ public class Bunker : MonoBehaviour {
             anim.SetTrigger("Shoot");
             GetComponent<AudioSource>().Play();
 
-            //get angle of gun 
-            //move projectile along angle
-            /*if (lumberjack.patrol() == "left")
-            {
-                // ... instantiate the rocket facing right and set it's velocity to the right.
-                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
-                bulletInstance.velocity = new Vector2(speed, 0);
-                StartCoroutine(rateOfFireController());
-
-            }
-            else
-            {
-                // Otherwise instantiate the rocket facing left and set it's velocity to the left.
-                Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 180f))) as Rigidbody2D;
-                bulletInstance.velocity = new Vector2(-speed, 0);
-                StartCoroutine(rateOfFireController());
-            }*/
+            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            bulletInstance.velocity = new Vector2(speed, 0);
+            StartCoroutine(rateOfFireController());
         }
     }
 
@@ -107,17 +84,20 @@ public class Bunker : MonoBehaviour {
 
     void Damaged()
     {
-        healthPoints -= 50;
+        health -= 50;
     }
 
     void Death() {
 
+        Collider2D[] cols = GetComponents<Collider2D>();
+        foreach (Collider2D c in cols)
+        {
+            c.isTrigger = true;
+        }
     }
-
 
     IEnumerator rateOfFireController()
     {
-
         allowFire = false;
         yield return new WaitForSeconds(.4f);
         allowFire = true;

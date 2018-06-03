@@ -10,7 +10,7 @@ public class Rocket : MonoBehaviour
 	{
 		// Destroy the rocket after 0.2 seconds if it doesn't get destroyed before then.
         //
-		Destroy(gameObject, 0.2f);
+		Destroy(gameObject, 1f);
 	}
 
 

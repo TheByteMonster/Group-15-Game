@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Gun : MonoBehaviour
 {
-	public Rigidbody2D bullet;				// Prefab of the rocket.
-	public float speed = 20f;				// The speed the rocket will fire at.
+    public Rigidbody2D rocket;				// Prefab of the rocket.
+	public float speed = 80f;				// The speed the rocket will fire at.
     public float range;
     public float fireRate = 1f;
     public bool allowFire = true; 
@@ -48,13 +48,11 @@ public class Gun : MonoBehaviour
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
 
-            // ... instantiate the rocket facing right and set it's velocity to the right.
             //...instantiating the rocket
-            bullet = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
-            bullet.velocity = new Vector2(shootDirection.x * speed/12, shootDirection.y * speed/12);
+            Rigidbody2D bulletInstance = Instantiate(rocket, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+            bulletInstance.velocity = new Vector2(shootDirection.x * speed * Time.deltaTime, shootDirection.y * speed * Time.deltaTime);
+            StartCoroutine(rateOfFireController());
 
-            //Rigidbody2D bulletInstance = Instantiate(rocket, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
-            //bulletInstance.velocity = new Vector2(speed, 0);
 
         }
     }

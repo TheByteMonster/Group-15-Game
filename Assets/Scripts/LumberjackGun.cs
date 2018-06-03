@@ -9,7 +9,6 @@ public class LumberjackGun : MonoBehaviour {
     public float range;
     public float fireRate = 1f;
     public bool allowFire = true;
-    public Transform sightStart, sightEnd;
     public bool facingLeft = true;
     public bool spotted;
     
@@ -40,73 +39,47 @@ public class LumberjackGun : MonoBehaviour {
     private void FixedUpdate()
     {
         rayCast();
-
-        if (rayCast() == true) {
-            fireWeapon();
-        }
+        
+  
     }
 
     //for the raycast
-    bool rayCast()
+    void rayCast()
     {
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         Quaternion rotation = Quaternion.LookRotation(playerPosition - transform.position, transform.TransformDirection(Vector3.up));
         transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+       
+        Debug.DrawLine(transform.position, playerPosition, Color.green);
 
-        //Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
-
-        if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
+        if (spotted = Physics2D.Linecast(transform.position, playerPosition,
         1 << LayerMask.NameToLayer("ground")))
         {
-            return false;
+            //nothing happens
         }
-        else if (spotted = Physics2D.Linecast(sightStart.position, playerPosition,
+        else if (spotted = Physics2D.Linecast(transform.position, playerPosition,
             1 << LayerMask.NameToLayer("Player")))
         {
-            return true;
-        }
-        else
-        {
-            return false;
-
+            fireWeapon();
         }
     }
 
     public void fireWeapon()
     {
+      
 
         if ((allowFire))
         {
 
             // ... set the animator Shoot trigger parameter and play the audioclip.
-            anim.SetTrigger("Shoot");
-            GetComponent<AudioSource>().Play();
+            //anim.SetTrigger("Shoot");
+            //GetComponent<AudioSource>().Play();
 
             Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
             bulletInstance.velocity = new Vector2(speed, 0);
             StartCoroutine(rateOfFireController());
         }
-
-        //get angle of gun 
-        //move projectile along angle
-        /*
-        if (lumberjack.patrol() == "left")// if something
-        {
-            // ... instantiate the rocket facing right and set it's velocity to the right.
-            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
-            bulletInstance.velocity = new Vector2(speed, 0);
-            StartCoroutine(rateOfFireController());
-
-        }
-
-        else
-        {
-            // Otherwise instantiate the rocket facing left and set it's velocity to the left.
-            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, 180f))) as Rigidbody2D;
-            bulletInstance.velocity = new Vector2(-speed, 0);
-            StartCoroutine(rateOfFireController());
-        }*/
 
     }
     //legacy code, consider putting it in raycast()

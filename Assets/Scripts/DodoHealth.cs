@@ -8,14 +8,14 @@ public class DodoHealth : MonoBehaviour {
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
 
+
     private float lastHitTime;                  // The time at which the player was last hit.
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
     private Animator anim;						// Reference to the Animator on the player
+    private TimeDisplay timeDisplay; 
+    
 
     private Score score;
-
-    //Modify script to account for time
-    //Implement this method into the score component
 
     void Awake()
     {
@@ -28,6 +28,7 @@ public class DodoHealth : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime;
+
     }
 
 
@@ -49,9 +50,7 @@ public class DodoHealth : MonoBehaviour {
     //legacy code?? delete
     void TakeDamage(Transform enemy)
     {
-        // Make sure the player can't jump.
         playerControl.jump = false;
-        // Create a vector that's from the enemy to the player with an upwards boost.
         //Vector3 hurtVector = transform.position - enemy.position + Vector3.up * 5f;
 
         // Add a force to the player in the direction of the vector and multiply by the hurtForce.
@@ -73,6 +72,6 @@ public class DodoHealth : MonoBehaviour {
 
     public void UpdateTimeDisplay()
     {
-        //Destroy();
+
     }
 }
