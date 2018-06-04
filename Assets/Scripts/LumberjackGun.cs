@@ -31,10 +31,6 @@ public class LumberjackGun : MonoBehaviour {
         pointWeapon();
     }
 
-    void Update()
-    {
-
-    }
 
     private void FixedUpdate()
     {
@@ -56,20 +52,6 @@ public class LumberjackGun : MonoBehaviour {
             if (spotted.collider.CompareTag("Player"))
                 fireWeapon(spotted.transform.position);
         }
-        
-        /*
-        if (spotted = Physics2D.Linecast(transform.position, playerPosition,
-        1 << LayerMask.NameToLayer("ground")))
-        {
-            //nothing happens
-            Debug.Log("Ground");
-        }
-        else if (spotted = Physics2D.Linecast(transform.position, playerPosition,
-            1 << LayerMask.NameToLayer("Player")))
-        {
-            Debug.Log("Player");
-            fireWeapon();
-        }*/
     }
 
     public void fireWeapon(Vector3 playerPos)
@@ -81,14 +63,11 @@ public class LumberjackGun : MonoBehaviour {
             //GetComponent<AudioSource>().Play();
 
             Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity) as Rigidbody2D;
-            Debug.Log(bulletInstance.transform.name);
             Vector3 shootDirection = (playerPos - transform.position).normalized;
             bulletInstance.GetComponent<Rocket>().timeAlive = range;
             bulletInstance.velocity = new Vector2(shootDirection.x*speed, shootDirection.y*speed);
             StartCoroutine(rateOfFireController());
-            Debug.Log(spotted.collider.name);
         }
-
     }
 
     IEnumerator rateOfFireController()

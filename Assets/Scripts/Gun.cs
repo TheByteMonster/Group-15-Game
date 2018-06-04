@@ -34,9 +34,6 @@ public class Gun : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
 
-        //Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        
 
         // If the fire button is pressed...
         if (Input.GetButtonDown("Fire1") && (allowFire))
@@ -44,15 +41,11 @@ public class Gun : MonoBehaviour
             Vector3 shootDirection;
             shootDirection = Input.mousePosition;
             shootDirection.z = 0.0f;
-            Debug.Log(shootDirection);
             shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-            Debug.Log(shootDirection);
             shootDirection = shootDirection - transform.position;
             shootDirection.z = 0.0f;
-            Debug.Log(shootDirection);
             shootDirection = shootDirection.normalized;
 
-            // ... set the animator Shoot trigger parameter and play the audioclip.
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
 
@@ -63,8 +56,6 @@ public class Gun : MonoBehaviour
             bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
             bulletInstance.GetComponent<Rocket>().timeAlive = range;
             StartCoroutine(rateOfFireController());
-
-
         }
     }
 

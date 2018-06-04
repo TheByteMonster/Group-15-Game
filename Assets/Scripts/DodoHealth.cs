@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DodoHealth : MonoBehaviour {
 
-    public float timeToLive= 100f;               
+    public float timeToLive;               
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
     public Text timetoLiveTxt;
@@ -28,6 +28,7 @@ public class DodoHealth : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime;
+        Debug.Log(timeToLive);
         UpdateTimeDisplay(timeToLive);
     }
 
