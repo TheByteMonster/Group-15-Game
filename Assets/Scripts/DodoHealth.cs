@@ -73,10 +73,10 @@ public class DodoHealth : MonoBehaviour {
             }
         }
     }
-
+    
     public void UpdateTimeDisplay(float time)
     {
-        GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
+        //GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
 
         if (time <= 0f)
         {

@@ -4,13 +4,14 @@ using System.Collections;
 public class Gun : MonoBehaviour
 {
     public Rigidbody2D rocket;				// Prefab of the rocket.
-	public float speed = 80f;				// The speed the rocket will fire at.
+	public float speed = 90000;				// The speed the rocket will fire at.
     public float range;
     public float fireRate = 1f;
-    public bool allowFire = true; 
+    public bool allowFire = true;
+    public Vector3 bulletOffset;
 
-
-	private PlayerControl playerCtrl;		// Reference to the PlayerControl script.
+    private CursorLockMode wantedMode;
+    private PlayerControl playerCtrl;		// Reference to the PlayerControl script.
 	private Animator anim;					// Reference to the Animator component.
 
 
@@ -20,8 +21,10 @@ public class Gun : MonoBehaviour
 		anim = transform.root.gameObject.GetComponent<Animator>();
 		playerCtrl = transform.root.GetComponent<PlayerControl>();
         //rateOfFireController();
+
 	}
 
+  
 
     void Update()
     {
@@ -31,26 +34,34 @@ public class Gun : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
 
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //...setting shoot direction
-        Vector3 shootDirection;
-        shootDirection = Input.mousePosition;
-        shootDirection.z = 0.0f;
-        shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-        shootDirection = shootDirection - transform.position;
-       
+        
 
         // If the fire button is pressed...
         if (Input.GetButtonDown("Fire1") && (allowFire))
         {
+            Vector3 shootDirection;
+            shootDirection = Input.mousePosition;
+            shootDirection.z = 0.0f;
+            Debug.Log(shootDirection);
+            shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+            Debug.Log(shootDirection);
+            shootDirection = shootDirection - transform.position;
+            shootDirection.z = 0.0f;
+            Debug.Log(shootDirection);
+            shootDirection = shootDirection.normalized;
+
             // ... set the animator Shoot trigger parameter and play the audioclip.
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
 
             //...instantiating the rocket
-            Rigidbody2D bulletInstance = Instantiate(rocket, transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
-            bulletInstance.velocity = new Vector2(shootDirection.x * speed * Time.deltaTime, shootDirection.y * speed * Time.deltaTime);
+            Vector3 bulletPos = transform.position;
+            bulletPos += bulletOffset;
+            Rigidbody2D bulletInstance = Instantiate(rocket, bulletPos, Quaternion.identity) as Rigidbody2D;
+            bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
+            bulletInstance.GetComponent<Rocket>().timeAlive = range;
             StartCoroutine(rateOfFireController());
 
 
