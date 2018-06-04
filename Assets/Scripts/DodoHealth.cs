@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class DodoHealth : MonoBehaviour {
 
     public float timeToLive= 100f;               
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
+    public Text timetoLiveTxt;
  
     private bool timeLeft = true;
-
     private float lastHitTime;                  // The time at which the player was last hit.
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
     private Animator anim;						// Reference to the Animator on the player
@@ -76,7 +76,7 @@ public class DodoHealth : MonoBehaviour {
     
     public void UpdateTimeDisplay(float time)
     {
-        //GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
+        GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
 
         if (time <= 0f)
         {

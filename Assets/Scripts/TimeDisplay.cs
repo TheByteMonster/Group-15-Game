@@ -10,10 +10,12 @@ public class TimeDisplay : MonoBehaviour {
     public float timeLimit;
     private float updatedTime;
 
+    private DodoHealth health; 
+
     // Use this for initialization
     void Start () {
-		
-	}
+        health = GameObject.FindGameObjectWithTag("DodoHealth").GetComponent<DodoHealth>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
