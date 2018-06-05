@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
 	public float jumpForce = 3000f;			// Amount of force added when the player jumps.
     public float jumpLimit = 2;
     public float timeBetweenJumps = 1.5f;
+    public Rigidbody2D rgb2D
 
     private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
@@ -26,13 +27,13 @@ public class PlayerControl : MonoBehaviour
 		// Setting up references.
 		//groundCheck = transform.Find("groundCheck");
 		anim = GetComponent<Animator>();
+        rgb2D = GetComponent<Rigidbody2D>();
 	}
 
 
     void Update()
     {
         // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
         grounded = Physics2D.Linecast(transform.position, Vector2.up);
 
         if (Input.GetButtonDown("Jump") && allowJump) { //&& grounded) {  
@@ -42,27 +43,23 @@ public class PlayerControl : MonoBehaviour
 
 	}
 
-
 	void FixedUpdate ()
 	{
 		// Cache the horizontal input.
 		float h = Input.GetAxis("Horizontal");
 
-		// The Speed animator parameter is set to the absolute value of the horizontal input.
-		//anim.SetFloat("Speed", Mathf.Abs(h));
+        // The Speed animator parameter is set to the absolute value of the horizontal input.
 
-		// If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
-		if(h * GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
-			// ... add a force to the player.
+        if (h * GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
 			GetComponent<Rigidbody2D>().AddForce(Vector2.right * h * moveForce);
+            anim.SetFloat("anim_dodo-run", maxSpeed);
 
-		// If the player's horizontal velocity is greater than the maxSpeed...
-		if(Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > maxSpeed)
+        if (Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > maxSpeed)
 			// ... set the player's velocity to the maxSpeed in the x axis.
 			GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x) * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
-		// If the input is moving the player right and the player is facing left...
-		if(h > 0 && !facingRight)
+
+        if (h > 0 && !facingRight)
 			// ... flip the player.
 			Flip();
 		// Otherwise if the input is moving the player left and the player is facing right...
@@ -74,8 +71,7 @@ public class PlayerControl : MonoBehaviour
         if (jump)
         {
             // Set the Jump animator trigger parameter.
-            //anim.SetTrigger("Jump");
-
+            anim.SetTrigger("anim_dodo-jump");
             // Play a random jump audio clip.
             //int i = Random.Range(0, jumpClips.Length);
             //AudioSource.PlayClipAtPoint(jumpClips[i], transform.position);
@@ -86,7 +82,8 @@ public class PlayerControl : MonoBehaviour
             // Make sure the player can't jump again until the jump conditions from Update are satisfied.
             jump = false;
             Invoke("EnableJump", timeBetweenJumps);
-        }       
+        }
+        anim.SetFloat("anim_dodo-run", Mathf.Abs(rgb2D.velocity.x));
     }
 
 
@@ -106,6 +103,5 @@ public class PlayerControl : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
-
 
 }
