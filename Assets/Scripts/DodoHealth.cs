@@ -5,30 +5,32 @@ using UnityEngine.UI;
 
 public class DodoHealth : MonoBehaviour {
 
-    public float timeToLive;               
+    public float timeToLive;
+    public float timeToLiveMax;
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
     public Text timetoLiveTxt;
- 
+
     private bool timeLeft = true;
-    private float lastHitTime;                  // The time at which the player was last hit.
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
     private Animator anim;						// Reference to the Animator on the player
-
-    
 
     void Awake()
     {
         // Setting up references.
         playerControl = GetComponent<PlayerControl>();
         //anim = GetComponent<Animator>();
-
     }
 
     void Update()
     {
         timeToLive -= Time.deltaTime;
-        Debug.Log(timeToLive);
+        //Debug.Log(timeToLive);
+
+        if (timeToLive >= timeToLiveMax) {
+            timeToLive = timeToLiveMax;
+        }
+
         UpdateTimeDisplay(timeToLive);
     }
 
