@@ -291,6 +291,7 @@
     <Compile Include="Assets\Scripts\BunkerBullet.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
+    <Compile Include="Assets\Scripts\DodoBullet.cs" />
     <Compile Include="Assets\Scripts\DodoHealth.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="Assets\Scripts\LayBombs.cs" />
     <Compile Include="Assets\Scripts\Logic.cs" />
     <Compile Include="Assets\Scripts\Lumberjack.cs" />
+    <Compile Include="Assets\Scripts\LumberjackBullet.cs" />
     <Compile Include="Assets\Scripts\LumberjackGun.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Pauser.cs" />

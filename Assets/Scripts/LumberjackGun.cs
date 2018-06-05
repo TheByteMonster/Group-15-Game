@@ -64,7 +64,7 @@ public class LumberjackGun : MonoBehaviour {
 
             Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity) as Rigidbody2D;
             Vector3 shootDirection = (playerPos - transform.position).normalized;
-            bulletInstance.GetComponent<Rocket>().timeAlive = range;
+            bulletInstance.GetComponent<LumberjackBullet>().timeAlive = range;
             bulletInstance.velocity = new Vector2(shootDirection.x*speed, shootDirection.y*speed);
             StartCoroutine(rateOfFireController());
         }

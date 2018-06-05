@@ -56,19 +56,6 @@ public class PlayerHealth : MonoBehaviour
                     lastHitTime = Time.time;
                 }
             }
-            /*
-            // ... and if the time exceeds the time of the last hit plus the time between hits...
-            if (Time.time > lastHitTime + repeatDamagePeriod)
-            {
-                // ... and if the player still has health...
-                if (health > 0f)
-                {
-                    // ... take damage and reset the lastHitTime.
-                    TakeDamage(col.transform);
-                    lastHitTime = Time.time;
-                }
-                */
-            // If the player doesn't have health, do some stuff, let him fall into the river to reload the level.
             else //KEEP THIS ELSE STATEMENT
             {
                 // Find all of the colliders on the gameobject and set them all to be triggers.
@@ -124,7 +111,7 @@ public class PlayerHealth : MonoBehaviour
         highTime--;
     }
 
-    
+    /*
 	public void UpdateHealthBar ()
 	{
 		// Set the health bar's colour to proportion of the way between green and red based on the player's health.
@@ -132,5 +119,5 @@ public class PlayerHealth : MonoBehaviour
 
 		// Set the scale of the health bar to be proportional to the player's health.
 		healthBar.transform.localScale = new Vector3(healthScale.x * health * 0.01f, 1, 1);
-	}
+	}*/
 }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class DodoHealth : MonoBehaviour {
 
-    public float timeToLive;
-    public float timeToLiveMax;
+    public float timeToLive = 35;
+    public float timeToLiveMax = 45;
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
-    public float damageAmount = 10f;            // The amount of damage to take when enemies touch the player
+    public float damageAmount;            // The amount of damage to take when enemies touch the player
     public Text timetoLiveTxt;
 
     private bool timeLeft = true;
@@ -19,6 +19,7 @@ public class DodoHealth : MonoBehaviour {
     {
         // Setting up references.
         playerControl = GetComponent<PlayerControl>();
+        timetoLiveTxt = GetComponent<Text>();
         //anim = GetComponent<Animator>();
     }
 
@@ -30,39 +31,15 @@ public class DodoHealth : MonoBehaviour {
         if (timeToLive >= timeToLiveMax) {
             timeToLive = timeToLiveMax;
         }
-
         UpdateTimeDisplay(timeToLive);
-    }
-
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        // If the colliding gameobject is an Enemy...
-        if (col.gameObject.tag == "EnemyBullet" || col.gameObject.tag == "BunkerBullet")
-        {
-            //TakeDamage(col.transform);
-            hurt();
-            }
-    }
-
-    //legacy code?? delete
-    void TakeDamage(Transform enemy)
-    {
-        playerControl.jump = false;
-        //Vector3 hurtVector = transform.position - enemy.position + Vector3.up * 5f;
-
-        // Add a force to the player in the direction of the vector and multiply by the hurtForce.
-        timeToLive -= 5;
-
-        int i = Random.Range(0, ouchClips.Length);
-        AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
     }
 
     public void hurt()
     {
         playerControl.jump = false;
 
-        timeToLive -= 5f;
+        //Debug.Log("player hit");
+        timeToLive -= damageAmount;
 
         int i = Random.Range(0, ouchClips.Length);
         AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);

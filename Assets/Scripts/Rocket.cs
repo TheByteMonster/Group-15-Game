@@ -10,7 +10,6 @@ public class Rocket : MonoBehaviour
 	void Start () 
 	{
 		// Destroy the rocket after 0.2 seconds if it doesn't get destroyed before then.
-        //
 		Destroy(gameObject, timeAlive);
 	}
 
@@ -26,7 +25,7 @@ public class Rocket : MonoBehaviour
 	
 	void OnTriggerEnter2D (Collider2D col) 
 	{
-		// If it hits an enemy...
+        // If it hits an enemy...
 		if(col.tag == "Enemy")
 		{
 			// ... find the Enemy script and call the Hurt function.

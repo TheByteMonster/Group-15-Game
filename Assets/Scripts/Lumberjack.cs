@@ -43,14 +43,14 @@ public class Lumberjack : MonoBehaviour {
         }
     }
 
-    void Damaged () {
+    public void Damaged () {
         healthPoints -= 50;
+        Debug.Log(healthPoints);
     }
 
     void Death() {
-
+  
         dead = true;
-
         Collider2D[] cols = GetComponents<Collider2D>();
         foreach (Collider2D c in cols)
         {
@@ -59,12 +59,8 @@ public class Lumberjack : MonoBehaviour {
 
         GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
 
-        int i = Random.Range(0, deathClips.Length);
-        AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
-
-        // more to this
-        //Destroy(col.gameObject);
-        //Destroy(gameObject);
+        //int i = Random.Range(0, deathClips.Length);
+        //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
     }
 
 
