@@ -52,7 +52,7 @@ public class PlayerControl : MonoBehaviour
 
         if (h * GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
 			GetComponent<Rigidbody2D>().AddForce(Vector2.right * h * moveForce);
-            anim.SetFloat("anim_dodo-run", maxSpeed);
+        anim.SetFloat("moveSpeed", maxSpeed);
 
         if (Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) > maxSpeed)
 			// ... set the player's velocity to the maxSpeed in the x axis.

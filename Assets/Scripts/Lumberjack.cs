@@ -34,6 +34,14 @@ public class Lumberjack : MonoBehaviour {
 
     }
 
+    public void hurt(Transform col) {
+
+        // If the colliding gameobject is an Enemy...
+        if (col.gameObject.tag == "blast")
+        {
+            Damaged();
+        }
+    }
 
     public void Damaged () {
         healthPoints -= 50;

@@ -11,6 +11,7 @@ public class LumberjackGun : MonoBehaviour {
     public bool allowFire = true;
     public bool facingLeft = true;
     public RaycastHit2D spotted;
+    public Transform gunTip;
 
     private float angle;
     private Animator anim;                  // Reference to the Animator component.
@@ -45,9 +46,9 @@ public class LumberjackGun : MonoBehaviour {
         Quaternion rotation = Quaternion.LookRotation(playerPosition - transform.position, transform.TransformDirection(Vector3.up));
         transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 
-        Debug.DrawLine(transform.position, playerPosition, Color.green);
+        Debug.DrawLine(gunTip.position, playerPosition, Color.green);
 
-        if (spotted = Physics2D.Linecast(transform.position, playerPosition))
+        if (spotted = Physics2D.Linecast(gunTip.position, playerPosition))
         {
             if (spotted.collider.CompareTag("Player"))
                 fireWeapon(spotted.transform.position);
@@ -62,8 +63,8 @@ public class LumberjackGun : MonoBehaviour {
             //anim.SetTrigger("Shoot");
             //GetComponent<AudioSource>().Play();
 
-            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity) as Rigidbody2D;
-            Vector3 shootDirection = (playerPos - transform.position).normalized;
+            Rigidbody2D bulletInstance = Instantiate(bullet, gunTip.position, Quaternion.identity) as Rigidbody2D;
+            Vector3 shootDirection=(playerPos -gunTip.position).normalized;
             bulletInstance.GetComponent<LumberjackBullet>().timeAlive = range;
             bulletInstance.velocity = new Vector2(shootDirection.x*speed, shootDirection.y*speed);
             StartCoroutine(rateOfFireController());

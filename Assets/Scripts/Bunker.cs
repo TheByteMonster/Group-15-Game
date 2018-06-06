@@ -4,94 +4,102 @@ using UnityEngine;
 
 public class Bunker : MonoBehaviour {
 
-    public Rigidbody2D bullet;              // Prefab of the rocket.
-    public float speed;
-    public float range;
-    public float fireRate = 1f;
-    public bool allowFire = true;
-    public bool facingLeft = true;
-    public RaycastHit2D spotted;
-    public float healthPoints;
+    public bool spotted;
+    public Ray sight;
+    public float health = 200;
     public bool dead = false;
+    public bool allowFire = true;
+    public float speed = 20f;
+    public Rigidbody2D bullet;
 
-    private float angle;
-    private Animator anim;                  // Reference to the Animator component.
-    private PlayerController target;
-    private float dir;
-    private GameObject gun;
+    private Animator anim;
+    private PlayerControl player;
 
 
-
-    void Awake()
+    // Use this for initialization
+    void Start()
     {
-        // Setting up the references.
-        anim = transform.root.gameObject.GetComponent<Animator>();
+        rayCast();
     }
 
-    private void Start()
+    // Update is called once per frame
+    void Update()
     {
-        pointWeapon();
+        
     }
 
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        pointWeapon();
+        rayCast();
+        // If the enemy has zero or fewer hit points and isn't dead yet...
+        if (health <= 0 && !dead) {
+
+        }
+  
     }
 
-
-    public void Damaged()
+    void rayCast()
     {
-        healthPoints -= 50;
-        Debug.Log(healthPoints);
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        //Debug.DrawLine(sightStart.position, sightEnd.position, Color.green);
+
+        if (spotted = Physics2D.Linecast(transform.position, playerPosition,
+      1 << LayerMask.NameToLayer("ground")))
+        {
+            //nothing happens
+        }
+        else if (spotted = Physics2D.Linecast(transform.position, playerPosition,
+            1 << LayerMask.NameToLayer("Player")))
+        {
+            shoot();
+        }
     }
 
-    void Death()
+    private void shoot() {
+
+        // If the fire button is pressed...
+        if (spotted == true && (allowFire))
+        {
+
+            // ... set the animator Shoot trigger parameter and play the audioclip.
+            anim.SetTrigger("Shoot");
+            GetComponent<AudioSource>().Play();
+
+            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            bulletInstance.velocity = new Vector2(speed, 0);
+            StartCoroutine(rateOfFireController());
+        }
+    }
+
+    public void Hurt(Transform col)
     {
-        dead = true;
+        // If the colliding gameobject is an Enemy...
+        if (col.gameObject.tag == "blast")
+        {
+           Damaged();
+        }
+
+    }
+
+    void Damaged()
+    {
+        health -= 50;
+    }
+
+    void Death() {
+
         Collider2D[] cols = GetComponents<Collider2D>();
         foreach (Collider2D c in cols)
         {
             c.isTrigger = true;
-        }
-        //int i = Random.Range(0, deathClips.Length);
-        //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
-    }
-
-
-    //for the raycast
-    void pointWeapon()
-    {
-        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        Debug.DrawLine(transform.position, playerPosition, Color.green);
-
-        if (spotted = Physics2D.Linecast(transform.position, playerPosition))
-        {
-            if (spotted.collider.CompareTag("Player"))
-                fireWeapon(spotted.transform.position);
-        }
-    }
-
-    public void fireWeapon(Vector3 playerPos)
-    {
-        if ((allowFire))
-        {
-            //anim.SetTrigger("Shoot");
-            //GetComponent<AudioSource>().Play();
-
-            Rigidbody2D bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity) as Rigidbody2D;
-            Vector3 shootDirection = (playerPos - transform.position).normalized;
-            bulletInstance.GetComponent<LumberjackBullet>().timeAlive = range;
-            bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
-            StartCoroutine(rateOfFireController());
         }
     }
 
     IEnumerator rateOfFireController()
     {
         allowFire = false;
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(.4f);
         allowFire = true;
     }
 }
