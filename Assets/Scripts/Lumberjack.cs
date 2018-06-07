@@ -18,6 +18,7 @@ public class Lumberjack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
+        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), getComponent<BoxCollider2D>());
 	}
 	
 	// Update is called once per frame
@@ -57,7 +58,7 @@ public class Lumberjack : MonoBehaviour {
             c.isTrigger = true;
         }
 
-        GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
+        //GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
 
         //int i = Random.Range(0, deathClips.Length);
         //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
