@@ -290,12 +290,14 @@
     <Compile Include="Assets\Scripts\Bunker.cs" />
     <Compile Include="Assets\Scripts\BunkerBullet.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\classExtents.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
     <Compile Include="Assets\Scripts\DodoBullet.cs" />
     <Compile Include="Assets\Scripts\DodoHealth.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyLogic.cs" />
+    <Compile Include="Assets\Scripts\enemytravel.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Gravity.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
