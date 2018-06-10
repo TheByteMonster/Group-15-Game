@@ -10,7 +10,12 @@ public class Lumberjack : MonoBehaviour {
     public bool dead = false;
     public AudioClip[] deathClips;
     public float deathSpinMin = -100f;       
-    public float deathSpinMax = 100f;			
+    public float deathSpinMax = 100f;
+    public LayerMask enemyMask;
+    public float speed = 1;
+    Rigidbody2D myBody;
+    Transform myTrans;
+    float myWidth, myHeight;
 
     private PlayerControl player;
 
@@ -18,8 +23,19 @@ public class Lumberjack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
+<<<<<<< HEAD
         Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), getComponent<BoxCollider2D>());
 	}
+=======
+        
+            myTrans = this.transform;
+            myBody = this.GetComponent<Rigidbody2D>();
+            SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
+            myWidth = mySprite.bounds.extents.x;
+            myHeight = mySprite.bounds.extents.y;
+        
+    }
+>>>>>>> 280dcbb37cf651c8d5ad2bb5c779cc260878a76d
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,6 +49,23 @@ public class Lumberjack : MonoBehaviour {
             Death();
         }
 
+            Vector2 lineCastPos = myTrans.position.toVector2() - myTrans.right.toVector2() * myWidth + Vector2.up * myHeight;
+            Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down*7);
+            bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down*7, enemyMask);
+            Debug.DrawLine(lineCastPos, lineCastPos - myTrans.right.toVector2() * .02f);
+            bool isBlocked = Physics2D.Linecast(lineCastPos, lineCastPos - myTrans.right.toVector2() * .02f, enemyMask);
+
+        if (!isGrounded || isBlocked)
+        {
+            Vector3 currRot = myTrans.eulerAngles;
+            currRot.y += 180;
+            myTrans.eulerAngles = currRot;
+        }
+
+        Vector2 myVel = myBody.velocity;
+            myVel.x = -myTrans.right.x * speed;
+            myBody.velocity = myVel;
+        
     }
 
     public void hurt(Transform col) {
@@ -42,6 +75,7 @@ public class Lumberjack : MonoBehaviour {
         {
             Damaged();
         }
+
     }
 
     public void Damaged () {
