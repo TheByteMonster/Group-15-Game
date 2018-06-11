@@ -11,9 +11,10 @@ public class DodoHealth : MonoBehaviour {
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount;            // The amount of damage to take when enemies touch the player
     public Text timetoLiveTxt;
-    public float hitBasic;
-    public float hitAdept;
-    public float hitElite;
+    public float damageBasic;
+    public float damageAdept;
+    public float damageElite;
+    public float timeAdded;
 
     private bool timeLeft = true;
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
@@ -29,14 +30,14 @@ public class DodoHealth : MonoBehaviour {
 
     void Update()
     {
-
+        timeToLive = TimeRemaining(timeToLive);
+        Debug.Log(timeToLive);
         if (timeToLive <= 0)
         {
             Dead();
         }
         //timeToLive -= Time.deltaTime;
-        //Debug.Log(timeToLive);
-        timeToLive = TimeRemaining(timeToLive);
+ 
 
         if (timeToLive >= timeToLiveMax)
         {
@@ -64,17 +65,28 @@ public class DodoHealth : MonoBehaviour {
 
     public void BasicHit()
     {
-        timeToLive = hitBasic - timeToLive;
+        timeToLive = timeToLive - damageBasic;
+        //Debug.Log("Time left " + timeToLive);
+        TimeRemaining(timeToLive);
     }
 
     public void AdeptHit()
     {
-        timeToLive = timeToLive - hitAdept;
+        timeToLive = timeToLive - damageAdept;
+        //Debug.Log("Time left " + timeToLive);
+        TimeRemaining(timeToLive);
+        
     }
 
     public void EliteHit()
     {
-        timeToLive = hitElite - timeToLive;
+        timeToLive = timeToLive - damageAdept;
+        //Debug.Log("Time left " + timeToLive);
+        TimeRemaining(timeToLive);
+    }
+
+    public void EnemyDead() {
+        timeToLive = timeToLive + timeAdded;
     }
 
     private float TimeRemaining(float remainingTime) {

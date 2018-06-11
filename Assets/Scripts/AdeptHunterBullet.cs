@@ -27,7 +27,7 @@ public class AdeptHunterBullet : MonoBehaviour {
         {
             // ... find the Enemy script and call the Hurt function.
             col.gameObject.GetComponent<DodoHealth>().AdeptHit();
-
+            Debug.Log("Adept has hit player");
             // Call the explosion instantiation.
             OnExplode();
 
