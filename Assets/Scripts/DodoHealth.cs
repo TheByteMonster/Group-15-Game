@@ -11,6 +11,9 @@ public class DodoHealth : MonoBehaviour {
     public AudioClip[] ouchClips;               // Array of clips to play when the player is damaged.
     public float damageAmount;            // The amount of damage to take when enemies touch the player
     public Text timetoLiveTxt;
+    public float hitBasic;
+    public float hitAdept;
+    public float hitElite;
 
     private bool timeLeft = true;
     private PlayerControl playerControl;        // Reference to the PlayerControl script.
@@ -26,27 +29,24 @@ public class DodoHealth : MonoBehaviour {
 
     void Update()
     {
-        timeToLive -= Time.deltaTime;
-        Debug.Log(timeToLive);
 
-        if (timeToLive >= timeToLiveMax) {
+        if (timeToLive <= 0)
+        {
+            Dead();
+        }
+        //timeToLive -= Time.deltaTime;
+        //Debug.Log(timeToLive);
+        timeToLive = TimeRemaining(timeToLive);
+
+        if (timeToLive >= timeToLiveMax)
+        {
             timeToLive = timeToLiveMax;
         }
         UpdateTimeDisplay(timeToLive);
+
+
     }
 
-    public void hurt()
-    {
-        //timeToLive -= damageAmount;
-        Debug.Log("Dodo hit");
-
-        //int i = Random.Range(0, ouchClips.Length);
-        //AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
-        /*
-        if (timeToLive <= 0) {
-            Dead();
-        }*/
-    }
 
     private void Dead() {
         Collider2D[] cols = GetComponents<Collider2D>();
@@ -57,6 +57,32 @@ public class DodoHealth : MonoBehaviour {
         reloadLevel();     
     }
     
+
+    public void reloadLevel() {
+        //Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void BasicHit()
+    {
+        timeToLive = hitBasic - timeToLive;
+    }
+
+    public void AdeptHit()
+    {
+        timeToLive = timeToLive - hitAdept;
+    }
+
+    public void EliteHit()
+    {
+        timeToLive = hitElite - timeToLive;
+    }
+
+    private float TimeRemaining(float remainingTime) {
+        remainingTime -= Time.deltaTime;
+        //Debug.Log(remainingTime);
+        return remainingTime;
+    }
+
     public void UpdateTimeDisplay(float time)
     {
         GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("f2");
@@ -67,9 +93,5 @@ public class DodoHealth : MonoBehaviour {
             timeLeft = false;
             GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
         }
-    }
-
-    public void reloadLevel() {
-        //Application.LoadLevel(Application.loadedLevel);
     }
 }

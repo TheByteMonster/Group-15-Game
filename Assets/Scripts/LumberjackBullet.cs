@@ -27,7 +27,7 @@ public class LumberjackBullet : MonoBehaviour {
         if (col.tag == "Player")
         {
             // ... find the Enemy script and call the Hurt function.
-           col.gameObject.GetComponent<DodoHealth>().hurt();
+            col.gameObject.GetComponent<DodoHealth>().BasicHit();
 
             // Call the explosion instantiation.
             OnExplode();

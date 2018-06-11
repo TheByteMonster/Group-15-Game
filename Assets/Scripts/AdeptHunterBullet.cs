@@ -26,13 +26,12 @@ public class AdeptHunterBullet : MonoBehaviour {
         if (col.tag == "Player")
         {
             // ... find the Enemy script and call the Hurt function.
-            col.gameObject.GetComponent<PlayerControl>().AdeptTranqHit();
+            col.gameObject.GetComponent<DodoHealth>().AdeptHit();
 
             // Call the explosion instantiation.
             OnExplode();
 
             // Destroy the rocket.
-            Destroy(col.gameObject);
             Destroy(gameObject);
 
         }

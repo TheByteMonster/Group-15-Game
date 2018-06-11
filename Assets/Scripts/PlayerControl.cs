@@ -102,33 +102,5 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-    public void AdeptTranqHit() {
-        playerHealth.GetComponent<DodoHealth>().hurt();
-        if (maxSpeed <= 2)
-        {
-            maxSpeed -= 1;
-        }
-        StartCoroutine(resetSpeed());
-    }
 
-    public void EliteTranqHit()
-    {
-        playerHealth.gameObject.GetComponent<DodoHealth>().hurt();
-        if (maxSpeed <= 1)
-        {
-            maxSpeed -= 1;
-        }
-        StartCoroutine(resetSpeed());
-    }
-
-
-    IEnumerator resetSpeed()
-    {
-        yield return new WaitForSeconds(timeToReset);
-
-        for (int i = 0;i <= maxSpeed; i++) {
-            maxSpeed += 1;
-        }
-        Debug.Log(maxSpeed);
-    }
 }
