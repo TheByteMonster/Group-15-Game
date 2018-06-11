@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LumberjackGun : MonoBehaviour {
 
-    public Rigidbody2D bullet;              // Prefab of the rocket.
+    public Rigidbody2D bullet;             
     public float speed;				
     public float range;
     public float fireRate = 1f;

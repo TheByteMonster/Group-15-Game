@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DodoHealth : MonoBehaviour {
 
@@ -26,7 +27,7 @@ public class DodoHealth : MonoBehaviour {
     void Update()
     {
         timeToLive -= Time.deltaTime;
-        //Debug.Log(timeToLive);
+        Debug.Log(timeToLive);
 
         if (timeToLive >= timeToLiveMax) {
             timeToLive = timeToLiveMax;
@@ -36,22 +37,24 @@ public class DodoHealth : MonoBehaviour {
 
     public void hurt()
     {
-        playerControl.jump = false;
+        //timeToLive -= damageAmount;
+        Debug.Log("Dodo hit");
 
-        //Debug.Log("player hit");
-        timeToLive -= damageAmount;
-
-        int i = Random.Range(0, ouchClips.Length);
-        AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
-
+        //int i = Random.Range(0, ouchClips.Length);
+        //AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
+        /*
         if (timeToLive <= 0) {
+            Dead();
+        }*/
+    }
 
-            Collider2D[] cols = GetComponents<Collider2D>();
-            foreach (Collider2D c in cols)
-            {
-                c.isTrigger = true;
-            }
+    private void Dead() {
+        Collider2D[] cols = GetComponents<Collider2D>();
+        foreach (Collider2D c in cols)
+        {
+            c.isTrigger = true;
         }
+        reloadLevel();     
     }
     
     public void UpdateTimeDisplay(float time)
@@ -64,5 +67,9 @@ public class DodoHealth : MonoBehaviour {
             timeLeft = false;
             GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
         }
+    }
+
+    public void reloadLevel() {
+        //Application.LoadLevel(Application.loadedLevel);
     }
 }

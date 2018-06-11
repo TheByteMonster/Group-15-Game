@@ -62,7 +62,7 @@ public class Gun : MonoBehaviour
     IEnumerator rateOfFireController() {
 
         allowFire = false; 
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(fireRate);
         allowFire = true; 
     }
 }

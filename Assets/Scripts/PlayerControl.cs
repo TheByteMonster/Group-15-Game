@@ -14,11 +14,13 @@ public class PlayerControl : MonoBehaviour
 	public float jumpForce = 3000f;			// Amount of force added when the player jumps.
     public float jumpLimit = 2;
     public float timeBetweenJumps = 1.5f;
+    public float timeToReset;
 
     private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
     private bool allowJump = true;
+    private DodoHealth playerHealth;
 
 
     void Awake()
@@ -26,20 +28,19 @@ public class PlayerControl : MonoBehaviour
 		// Setting up references.
 		//groundCheck = transform.Find("groundCheck");
 		anim = GetComponent<Animator>();
+        playerHealth = GetComponent<DodoHealth>();
 	}
 
 
     void Update()
     {
-        // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer.
-        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));  
+        // The player is grounded if a linecast to the groundcheck position hits anything on the ground layer. 
         grounded = Physics2D.Linecast(transform.position, Vector2.up);
 
         if (Input.GetButtonDown("Jump") && allowJump) { //&& grounded) {  
             jump = true;
             allowJump = false;
         }
-
 	}
 
 	void FixedUpdate ()
@@ -85,12 +86,10 @@ public class PlayerControl : MonoBehaviour
         }       
     }
 
-
     private void EnableJump()
     {
         allowJump = true;
     }
-	
 	
 	void Flip ()
 	{
@@ -103,4 +102,33 @@ public class PlayerControl : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+    public void AdeptTranqHit() {
+        playerHealth.GetComponent<DodoHealth>().hurt();
+        if (maxSpeed <= 2)
+        {
+            maxSpeed -= 1;
+        }
+        StartCoroutine(resetSpeed());
+    }
+
+    public void EliteTranqHit()
+    {
+        playerHealth.gameObject.GetComponent<DodoHealth>().hurt();
+        if (maxSpeed <= 1)
+        {
+            maxSpeed -= 1;
+        }
+        StartCoroutine(resetSpeed());
+    }
+
+
+    IEnumerator resetSpeed()
+    {
+        yield return new WaitForSeconds(timeToReset);
+
+        for (int i = 0;i <= maxSpeed; i++) {
+            maxSpeed += 1;
+        }
+        Debug.Log(maxSpeed);
+    }
 }
