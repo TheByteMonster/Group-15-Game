@@ -23,10 +23,10 @@ public class Lumberjack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
-<<<<<<< HEAD
+/*<<<<<<< HEAD
         Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), getComponent<BoxCollider2D>());
 	}
-=======
+=======*/
         
             myTrans = this.transform;
             myBody = this.GetComponent<Rigidbody2D>();
@@ -35,7 +35,7 @@ public class Lumberjack : MonoBehaviour {
             myHeight = mySprite.bounds.extents.y;
         
     }
->>>>>>> 280dcbb37cf651c8d5ad2bb5c779cc260878a76d
+/*>>>>>>> 280dcbb37cf651c8d5ad2bb5c779cc260878a76d*/
 	
 	// Update is called once per frame
 	void Update () {
