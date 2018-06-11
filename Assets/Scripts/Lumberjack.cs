@@ -25,7 +25,7 @@ public class Lumberjack : MonoBehaviour
     void Start()
     {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
 
         myTrans = this.transform;
         myBody = this.GetComponent<Rigidbody2D>();
@@ -38,7 +38,7 @@ public class Lumberjack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-=======
+/*=======*/
 /*<<<<<<< HEAD
         Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), getComponent<BoxCollider2D>());
 	}
@@ -54,10 +54,10 @@ public class Lumberjack : MonoBehaviour
 /*>>>>>>> 280dcbb37cf651c8d5ad2bb5c779cc260878a76d*/
 	
 	// Update is called once per frame
-	void Update () {
->>>>>>> 91136564dfc1973174bee7fb1fbf1147dd74d18e
+	/*void Update () {}
+/*>>>>>>> 91136564dfc1973174bee7fb1fbf1147dd74d18e*/
 
-    }
+
 
     void FixedUpdate()
     {

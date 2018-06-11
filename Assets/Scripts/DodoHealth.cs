@@ -33,6 +33,7 @@ public class DodoHealth : MonoBehaviour {
         if (timeToLive <= 0)
         {
             Dead();
+            Application.LoadLevel(Application.loadedLevel);
         }
         //timeToLive -= Time.deltaTime;
         //Debug.Log(timeToLive);
