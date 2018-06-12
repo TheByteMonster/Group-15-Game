@@ -24,43 +24,33 @@ public class DodoHealth : MonoBehaviour {
     {
         // Setting up references.
         playerControl = GetComponent<PlayerControl>();
-        timetoLiveTxt = GetComponent<Text>();
         //anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         timeToLive = TimeRemaining(timeToLive);
-        Debug.Log(timeToLive);
+        //Debug.Log(timeToLive);
         if (timeToLive <= 0)
         {
             Dead();
         }
         //timeToLive -= Time.deltaTime;
  
-
         if (timeToLive >= timeToLiveMax)
         {
             timeToLive = timeToLiveMax;
         }
         UpdateTimeDisplay(timeToLive);
-
-
     }
 
 
     private void Dead() {
-        Collider2D[] cols = GetComponents<Collider2D>();
-        foreach (Collider2D c in cols)
-        {
-            c.isTrigger = true;
-        }
         reloadLevel();     
     }
-    
 
     public void reloadLevel() {
-        //Application.LoadLevel(Application.loadedLevel);
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void BasicHit()
@@ -74,8 +64,7 @@ public class DodoHealth : MonoBehaviour {
     {
         timeToLive = timeToLive - damageAdept;
         //Debug.Log("Time left " + timeToLive);
-        TimeRemaining(timeToLive);
-        
+        TimeRemaining(timeToLive);  
     }
 
     public void EliteHit()
@@ -87,11 +76,12 @@ public class DodoHealth : MonoBehaviour {
 
     public void EnemyDead() {
         timeToLive = timeToLive + timeAdded;
+        TimeRemaining(timeToLive);
     }
 
     private float TimeRemaining(float remainingTime) {
         remainingTime -= Time.deltaTime;
-        //Debug.Log(remainingTime);
+        Debug.Log(remainingTime);
         return remainingTime;
     }
 
@@ -103,7 +93,7 @@ public class DodoHealth : MonoBehaviour {
         {
             timeToLive = 0;
             timeLeft = false;
-            GetComponent<GUIText>().text = "Drug Trip Time Left: " + time.ToString("0");
+            GetComponent<GUIText>().text = "Drug Trip Time Left: Dodo is Dead ";
         }
     }
 }

@@ -18,20 +18,26 @@ public class Lumberjack : MonoBehaviour
     Transform myTrans;
     float myWidth, myHeight;
 
-    private PlayerControl player;
+    private DodoHealth playerHealth;
+    private Collider2D[] cols;
 
+    private void Awake()
+    {
+       
+    }
 
     // Use this for initialization
     void Start()
     {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
-
+  
         myTrans = this.transform;
         myBody = this.GetComponent<Rigidbody2D>();
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
         myWidth = mySprite.bounds.extents.x;
         myHeight = mySprite.bounds.extents.y;
-
+        playerHealth = GetComponent<DodoHealth>();
+        cols = GetComponents<Collider2D>();
     }
 
     // Update is called once per frame
@@ -64,18 +70,6 @@ public class Lumberjack : MonoBehaviour
         Vector2 myVel = myBody.velocity;
         myVel.x = -myTrans.right.x * speed;
         myBody.velocity = myVel;
-
-    }
-
-    public void hurt(Transform col)
-    {
-
-        // If the colliding gameobject is an Enemy...
-        if (col.gameObject.tag == "blast")
-        {
-            Damaged();
-        }
-
     }
 
     public void Damaged()
@@ -84,21 +78,24 @@ public class Lumberjack : MonoBehaviour
         Debug.Log(healthPoints);
     }
 
-    void Death()
+    public void Death()
     {
-
         dead = true;
-        Collider2D[] cols = GetComponents<Collider2D>();
+        Debug.Log("Adding Time");
+        playerHealth.GetComponent<DodoHealth>().EnemyDead();
+      
         foreach (Collider2D c in cols)
         {
             c.isTrigger = true;
         }
-
         GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
-
         //int i = Random.Range(0, deathClips.Length);
         //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
     }
+ 
+     
+
+    
 
 
 

@@ -26,12 +26,12 @@ public class DodoBullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
         // If it hits an enemy...
         if (col.tag == "Enemy")
         {
             // ... find the Enemy script and call the Hurt function.
             col.gameObject.GetComponent<Lumberjack>().Damaged();
+            
 
             // Call the explosion instantiation.
             OnExplode();
