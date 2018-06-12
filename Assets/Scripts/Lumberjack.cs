@@ -18,38 +18,31 @@ public class Lumberjack : MonoBehaviour
     Transform myTrans;
     float myWidth, myHeight;
 
-    private DodoHealth playerHealth;
-    private Collider2D[] cols;
-
+    public DodoHealth playerHealth;
 
     // Use this for initialization
     void Start()
     {
         //InvokeRepeating("patrol",0f,Random.Range(0,4));
-  
         myTrans = this.transform;
         myBody = this.GetComponent<Rigidbody2D>();
         SpriteRenderer mySprite = this.GetComponent<SpriteRenderer>();
         myWidth = mySprite.bounds.extents.x;
         myHeight = mySprite.bounds.extents.y;
-        playerHealth = GetComponent<DodoHealth>();
-        cols = GetComponents<Collider2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void FixedUpdate()
-    {
-        //kill enemy if health is zero
         if (healthPoints <= 0)
         {
             Death();
         }
+    }
 
+    void FixedUpdate()
+    {
         Vector2 lineCastPos = myTrans.position.toVector2() - myTrans.right.toVector2() * myWidth + Vector2.up * myHeight;
         Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down * 7);
         bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down * 7, enemyMask);
@@ -77,14 +70,16 @@ public class Lumberjack : MonoBehaviour
     public void Death()
     {
         dead = true;
-        //Debug.Log("Adding Time");
-        playerHealth.EnemyDead();
-      
+
+        Collider2D[] cols = GetComponents<Collider2D>();
         foreach (Collider2D c in cols)
         {
             c.isTrigger = true;
         }
-        GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
+        Debug.Log("Enemy Dead");
+        GameObject.FindGameObjectWithTag("Player").GetComponent<DodoHealth>().EnemyDead();
+        Destroy(gameObject);
+        //GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
         //int i = Random.Range(0, deathClips.Length);
         //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
     }

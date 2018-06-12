@@ -29,19 +29,21 @@ public class DodoHealth : MonoBehaviour {
 
     void Update()
     {
-        timeToLive = TimeRemaining(timeToLive);
-        //Debug.Log(timeToLive);
-        if (timeToLive <= 0)
-        {
-            Dead();
-        }
-        //timeToLive -= Time.deltaTime;
- 
+
         if (timeToLive >= timeToLiveMax)
         {
             timeToLive = timeToLiveMax;
         }
-        UpdateTimeDisplay(timeToLive);
+
+        timeToLive -= Time.deltaTime;
+        Debug.Log(timeToLive);
+
+        if (timeToLive <= 0)
+        {
+            Dead();
+        }
+
+        //UpdateTimeDisplay(timeToLive);
     }
 
 
@@ -52,37 +54,28 @@ public class DodoHealth : MonoBehaviour {
     public void reloadLevel() {
         Application.LoadLevel(Application.loadedLevel);
     }
-
+    
     public void BasicHit()
     {
         timeToLive = timeToLive - damageBasic;
-        //Debug.Log("Time left " + timeToLive);
-        TimeRemaining(timeToLive);
+
     }
 
     public void AdeptHit()
     {
         timeToLive = timeToLive - damageAdept;
-        //Debug.Log("Time left " + timeToLive);
-        TimeRemaining(timeToLive);  
+
     }
 
     public void EliteHit()
     {
         timeToLive = timeToLive - damageAdept;
-        //Debug.Log("Time left " + timeToLive);
-        TimeRemaining(timeToLive);
+      
     }
 
     public void EnemyDead() {
-        timeToLive = timeToLive + timeAdded;
-        TimeRemaining(timeToLive);
-    }
 
-    private float TimeRemaining(float remainingTime) {
-        remainingTime -= Time.deltaTime;
-        Debug.Log(remainingTime);
-        return remainingTime;
+        timeToLive += timeAdded;
     }
 
     public void UpdateTimeDisplay(float time)
