@@ -21,10 +21,6 @@ public class Lumberjack : MonoBehaviour
     private DodoHealth playerHealth;
     private Collider2D[] cols;
 
-    private void Awake()
-    {
-       
-    }
 
     // Use this for initialization
     void Start()
@@ -81,8 +77,8 @@ public class Lumberjack : MonoBehaviour
     public void Death()
     {
         dead = true;
-        Debug.Log("Adding Time");
-        playerHealth.GetComponent<DodoHealth>().EnemyDead();
+        //Debug.Log("Adding Time");
+        playerHealth.EnemyDead();
       
         foreach (Collider2D c in cols)
         {
