@@ -68,8 +68,8 @@ public class Lumberjack : MonoBehaviour
         }
 
         Vector2 lineCastPos = myTrans.position.toVector2() - myTrans.right.toVector2() * myWidth + Vector2.up * myHeight;
-        Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down * 7);
-        bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down * 7, enemyMask);
+        Debug.DrawLine(lineCastPos, lineCastPos + Vector2.down * 1);
+        bool isGrounded = Physics2D.Linecast(lineCastPos, lineCastPos + Vector2.down * 4, enemyMask);
         Debug.DrawLine(lineCastPos, lineCastPos - myTrans.right.toVector2() * .02f);
         bool isBlocked = Physics2D.Linecast(lineCastPos, lineCastPos - myTrans.right.toVector2() * .02f, enemyMask);
 
