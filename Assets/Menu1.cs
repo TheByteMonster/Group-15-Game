@@ -8,6 +8,10 @@ public class Menu1 : MonoBehaviour {
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    public void resumeGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+}
     public void quitGame()
     {
         Debug.Log("QUIT");
