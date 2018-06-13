@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour
 {
+
 	[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
 	[HideInInspector]
@@ -85,7 +86,7 @@ public class PlayerControl : MonoBehaviour
             Invoke("EnableJump", timeBetweenJumps);
         }       
     }
-
+   
     private void EnableJump()
     {
         allowJump = true;
