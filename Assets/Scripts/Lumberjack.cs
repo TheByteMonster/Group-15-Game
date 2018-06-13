@@ -70,15 +70,10 @@ public class Lumberjack : MonoBehaviour
     public void Death()
     {
         dead = true;
-
-        Collider2D[] cols = GetComponents<Collider2D>();
-        foreach (Collider2D c in cols)
-        {
-            c.isTrigger = true;
-        }
+        Destroy(gameObject);
         Debug.Log("Enemy Dead");
         GameObject.FindGameObjectWithTag("Player").GetComponent<DodoHealth>().EnemyDead();
-        Destroy(gameObject);
+        
         //GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
         //int i = Random.Range(0, deathClips.Length);
         //AudioSource.PlayClipAtPoint(deathClips[i], transform.position);

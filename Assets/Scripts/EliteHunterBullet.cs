@@ -25,7 +25,6 @@ public class EliteHunterBullet : MonoBehaviour {
         if (col.tag == "Player")
         {
             // ... find the Enemy script and call the Hurt function.
-            //col.gameObject.GetComponent<PlayerControl>().EliteTranqHit();
             col.gameObject.GetComponent<DodoHealth>().EliteHit();
 
             OnExplode();

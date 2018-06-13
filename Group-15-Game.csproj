@@ -294,6 +294,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\classExtents.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
+    <Compile Include="Assets\Scripts\DisplaySOFloatText.cs" />
     <Compile Include="Assets\Scripts\DodoBullet.cs" />
     <Compile Include="Assets\Scripts\DodoHealth.cs" />
     <Compile Include="Assets\Scripts\EliteHunterBullet.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="Assets\Scripts\ScoreShadow.cs" />
     <Compile Include="Assets\Scripts\Scroller.cs" />
     <Compile Include="Assets\Scripts\SetParticleSortingLayer.cs" />
+    <Compile Include="Assets\Scripts\SOFloat.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\TimeBomb.cs" />
     <Compile Include="Assets\Scripts\TimeDisplay.cs" />

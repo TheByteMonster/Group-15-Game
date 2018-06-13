@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{ABF51A12-4BEA-AD1C-6F32-D97EAE08D381}</ProjectGuid>
+    <ProjectGuid>{E66C290F-FDC3-C819-E575-3A3983967130}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Menu1.cs" />
+    <Compile Include="Assets\Scripts\AdeptHunterBullet.cs" />
+    <Compile Include="Assets\Scripts\AdeptHunterGun.cs" />
     <Compile Include="Assets\Scripts\BackgroundParallax.cs" />
     <Compile Include="Assets\Scripts\BackgroundPropSpawner.cs" />
     <Compile Include="Assets\Scripts\Bomb.cs" />
@@ -67,12 +69,16 @@
     <Compile Include="Assets\Scripts\Bunker.cs" />
     <Compile Include="Assets\Scripts\BunkerBullet.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\classExtents.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
     <Compile Include="Assets\Scripts\DodoBullet.cs" />
     <Compile Include="Assets\Scripts\DodoHealth.cs" />
+    <Compile Include="Assets\Scripts\EliteHunterBullet.cs" />
+    <Compile Include="Assets\Scripts\EliteHunterGun.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyLogic.cs" />
+    <Compile Include="Assets\Scripts\enemytravel.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Gravity.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
@@ -99,13 +105,14 @@
     <Compile Include="Assets\Scripts\Scroller.cs" />
     <Compile Include="Assets\Scripts\SetParticleSortingLayer.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\TimeBomb.cs" />
     <Compile Include="Assets\Scripts\TimeDisplay.cs" />
     <Compile Include="Assets\storyButton1.cs" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Group-1 experiement/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Group-1 experiement/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/Group-15-Game/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>D:/Group-15-Game/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
