@@ -282,6 +282,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\loadnewlevel.cs" />
     <Compile Include="Assets\Menu1.cs" />
     <Compile Include="Assets\Scripts\AdeptHunterBullet.cs" />
     <Compile Include="Assets\Scripts\AdeptHunterGun.cs" />
