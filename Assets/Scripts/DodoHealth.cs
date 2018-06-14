@@ -33,7 +33,14 @@ public class DodoHealth : MonoBehaviour {
 
         if (timeToLive.FloatValue >= timeToLiveMax)
         {
+<<<<<<< HEAD
             timeToLive.FloatValue = timeToLiveMax;
+=======
+            Dead();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                
+            
+>>>>>>> 72682c071e6c790b21f435151b27450e2c738b6b
         }
 
         timeToLive.FloatValue -= Time.deltaTime;

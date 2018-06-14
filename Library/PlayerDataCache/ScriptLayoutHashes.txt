@@ -4,7 +4,15 @@ Assets/Scenes/Menu2.unity
 Assets/Scenes/Story scene 1.unity
 Assets/Scenes/Story scene 2.unity
 Assets/Scenes/Story scene 3.unity
+Assets/Scenes/NEwScenes/Level 1.unity
+Assets/Scenes/NEwScenes/levelmenu.unity
+Assets/Scenes/NEwScenes/Level 2.unity
+Assets/Scenes/NEwScenes/levelmenu1.unity
+Assets/Scenes/NEwScenes/Level 3.unity
+Assets/Scenes/NEwScenes/levelmenu3.unity
+Assets/Scenes/NEwScenes/Level 4.unity
 Assets/Scenes/NEwScenes/Final Level.unity
+Assets/Scenes/NEwScenes/levelmenu4.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Pauser
 75dceff3f1b368aec1b8550d8c587f21 Assembly-CSharp.dll:.AdeptHunterGun
@@ -190,3 +198,4 @@ b03894c18e28bf901caf9aa97efa1666 Assembly-CSharp.dll:.LumberjackBullet
 c8c7c1d99415de995189ca6f34903980 Assembly-CSharp.dll:.Bomb
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Portal2to3
 307d9f491fea791345eb6aa66e84c179 Assembly-CSharp.dll:.CameraFollow
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.loadnewlevel
